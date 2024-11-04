@@ -95,7 +95,7 @@
                 echo "<td>" . $record['leaved_at'] . "</td>";
 
             }
-//            
+//
             ?>
 
         </tbody>
