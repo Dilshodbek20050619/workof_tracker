@@ -1,3 +1,5 @@
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,7 +10,7 @@
     <title>Work Of Tracker</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 </head>
-<body class="bg-secondary">
+<body >
 <div class="container">
     <h1 class="text-primary text-center">Work Of Tracker</h1>
     <div class="row align-items-end my-3">
@@ -32,48 +34,6 @@
             </form>
         </div>
     </div>
-
-    <?php
-
-
-    require 'DB.php';
-
-    $db = new DB();
-
-    $pdo = $db->pdo;
-
-    const REQUIRED_HOUR_DURATION = 8;
-    if (isset($_POST['name']) && isset($_POST['arrived_at']) && isset($_POST['leaved_at'])) {
-
-        if (!empty($_POST['name']) && !empty($_POST['arrived_at']) && !empty($_POST['leaved_at'])) {
-            $name = $_POST['name'];
-            $arrived_at = new DateTime($_POST['arrived_at']);
-            $leaved_at = new DateTime($_POST['leaved_at']);
-
-            $diff = $arrived_at->diff($leaved_at);
-            $hour = $diff->h;
-            $minute = $diff->i;
-            $second = $diff->s;
-            $total = ((REQUIRED_HOUR_DURATION * 3600) - (($hour * 3600) + ($minute * 60)));
-
-            $query = "INSERT INTO daily (name,arrived_at,leaved_at, required_of) 
-                        VALUES (:name, :arrived_at, :leaved_at, :required_of)";
-            $stmt = $pdo->prepare($query);
-
-            $stmt->bindParam(':name', $name);
-            $stmt->bindValue(':arrived_at', $arrived_at->format('Y-m-d H:i'));
-            $stmt->bindValue(':leaved_at', $leaved_at->format('Y-m-d H:i'));
-            $stmt->bindParam(':required_of', $total);
-            $stmt->execute();
-            header('Location: index.php');
-            return;
-        }
-    }
-
-    $query = "SELECT * FROM workingtimes";
-    $stmt = $pdo->query($query);
-    $records = $stmt->fetchAll();
-    ?>
     <table class="table table-primary table-hover">
         <thead>
         <tr class="table-secondary">
@@ -82,11 +42,13 @@
             <th scope="col">Kelgan vaqti</th>
             <th scope="col">Ketgan vaqti</th>
             <th scope="col">Ishlash kerak</th>
+            <th scope="col">Action</th>
         </tr>
         </thead>
         <tbody>
         <?php
-
+        global $records;
+        
         foreach ($records as $record) {
             echo "<tr>
                 <td>{$record['id']}</td>
@@ -94,10 +56,11 @@
                 <td>{$record['arrived_at']}</td>
                 <td>{$record['leaved_at']}</td>
                 <td>" . gmdate('H:i',$record['required_of']) . "</td>
-            </tr>";
+                <td><a href='index.php?done=" . $record ['id'] ."'>Done</a></td>
+                </tr>";
         }
 
-        ?>
+            ?>
         </tbody>
     </table>
 </div>
@@ -105,3 +68,4 @@
 
 </body>
 </html>
+

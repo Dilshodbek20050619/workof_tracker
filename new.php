@@ -124,35 +124,98 @@
             font-size: 24px;
         }
 
-        .img_1 img {
-            padding-top: 20px;
-            width: 500px;
-            height: 300px;
-            padding-left: 50px;
-            border-radius: 10px;
-        }
-
-        .img_2 img {
-            width: 500px;
-            height: 300px;
-            padding-right: 50px;
-        }
-
         .main3_1 {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding-top: 20px;
 
         }
 
-        .text_1 h3 {
+        .img_border img {
+            width: 700px;
+            height: 300px;
+            padding-left: 50px;
+            border-radius: 15px 15px 15px 15px;
+            /* To'rt tomon uchun radiusni aniq belgilash */
+        }
+
+
+
+
+        .img_2 img {
+            margin-top: 20px;
+            width: 700px;
+            height: 300px;
+            padding-right: 50px;
+            border-radius: 15px;
+
+        }
+
+        .img_3 img {
+            width: 400px;
+            height: 400px;
+            margin-left: 50px;
+            border-radius: 15px;
+
+        }
+
+        .img_4 img {
+            margin-top: 20px;
+            width: 400px;
+            height: 400px;
+            border-radius: 15px;
+
+
+        }
+
+        .img_5 img {
+            margin-top: 20px;
+            width: 400px;
+            height: 400px;
+            border-radius: 15px;
             margin-right: 50px;
+
+
+
+        }
+
+
+        .matn h3 {
+            padding-left: 50px;
+        }
+
+        .matn1 h3 {
+            padding-right: 50px;
+        }
+
+        .container {
+            margin-top: 20px;
+            height: 80px;
+            border: 1px solid black;
+            background-color: #f0ebeb;
+        }
+
+        .row {
+            padding-top: 15px;
+        }
+
+        .col button {
+            background-color: greenyellow;
+            height: 40px;
+            width: 100px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-self: center;
+
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
+    <div class="container1">
         <div>
             <div class="main">
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -209,12 +272,15 @@
             <h1>Decorate a beatiful interior
                 for your space
             </h1>
-            <!-- <div class="modal-body">
-                <form class="card p-4" method="" id="hello">
-                    <div class="mb-4">
+
+
+            <div class="container text-center">
+                <div class="row align-items-center">
+                    <div class="col">
                         <input type="text" class="form-control " name="name" id="name">
+
                     </div>
-                    <div>
+                    <div class="col">
                         <select class="form-select" aria-label="Default select example">
                             <option selected>Price</option>
                             <option value="1">$500-$900</option>
@@ -225,34 +291,25 @@
 
                         </select>
                     </div>
-                    <div class="mb-4">
+                    <div class="col">
                         <button>Search</button>
                     </div>
-                </form>
-            </div> -->
+                </div>
+            </div>
 
             <div class="main0">
                 <div class="box_1">
                     <div>
-                        <input type="text" class="form-control " name="name" id="name">
                     </div>
                 </div>
                 <div class="box_2">
                     <div>
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Price</option>
-                            <option value="1">$500-$900</option>
-                            <option value="2">$1000-$1200</option>
-                            <option value="2">$1300-$1500</option>
-                            <option value="2">$1600-$1800</option>
 
-
-                        </select>
                     </div>
                 </div>
                 <div class="box_3">
                     <div>
-                        <button>Search</button>
+
                     </div>
                 </div>
 
@@ -302,18 +359,66 @@
         <div class="main3">
             <div class="main3_1">
                 <div class="img_1">
-                    <img src="https://i.pinimg.com/originals/9a/16/a3/9a16a3173431f57c3ee7d0f5e1a33d9f.jpg" alt="jpg">
-                    <div class="text_1">
+                    <div class="img_border">
+                        <img src="https://i.pinimg.com/originals/9a/16/a3/9a16a3173431f57c3ee7d0f5e1a33d9f.jpg" alt="jpg">
+                    </div>
+                    <div class="matn">
                         <h3>Bathroom</h3>
                     </div>
                 </div>
-                <div class="img_1">
+                <div class="img_2">
                     <img src="https://i.pinimg.com/originals/35/b0/e9/35b0e9e0ceef2751286ac76f38b36be2.jpg" alt="jpg">
 
-                    <div class="text_1">
+                    <div class="matn1">
                         <h3>Dinign</h3>
                     </div>
                 </div>
+            </div>
+            <div class="main3_1">
+                <div class="img_3">
+                    <img src="https://i.pinimg.com/originals/d2/d3/db/d2d3db55d2904b238b439de3300ef26f.jpg" alt="jpg">
+                    <div class="matn">
+                        <h3>Living Room</h3>
+                    </div>
+                </div>
+                <div class="img_4">
+                    <img src="https://st.hzcdn.com/simgs/pictures/kitchens/using-stone-on-interior-walls-buechel-stone-corp-img~9c4166f204d8d1d5_9-5665-1-1140c78.jpg" alt="jpg">
+
+                    <div class="matn1">
+                        <h3>Chef Kitchen</h3>
+                    </div>
+                </div>
+
+                <div class="img_5">
+                    <img src="https://avatars.mds.yandex.net/i?id=894a43d185fa18c50b00ffade4c3e717751b4845-5887546-images-thumbs&n=13" alt="jpg">
+
+                    <div class="matn1">
+                        <h3>Childerens Bathroom</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main4">
+            <div class="main4_1">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
 
