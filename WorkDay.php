@@ -1,26 +1,26 @@
+
 <?php
 
 require 'DB.php';
 
 class WorkDay{
     const REQUIRED_HOUR_DURATION = 8;
-    public $pdo;
+    public $conn;
     public function __construct () {
         $db = new DB();
-        $this->pdo = $db->pdo;
+        $this->conn = $db->pdo;
     }
     public function store (string $name, string $arrived_at, string $leaved_at) {
-
+        // parametrdan arrived_at ni olib date object yasaymiz
         $arrived_at = new DateTime($arrived_at);
         $leaved_at = new DateTime($leaved_at);
         $diff = $arrived_at->diff($leaved_at);
         $hour = $diff->h;
         $minute = $diff->i;
-        $second = $diff->s;
         $total = ((self::REQUIRED_HOUR_DURATION * 3600) - (($hour * 3600) + ($minute * 60)));
-        $query = "INSERT INTO worktime (name,arrived_at,leaved_at, required_of) 
+        $query = "INSERT INTO daily (name,arrived_at,leaved_at, required_of) 
                         VALUES (:name, :arrived_at, :leaved_at, :required_of)";
-        $stmt = $this->pdo->prepare($query);
+        $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':name', $name);
         $stmt->bindValue(':arrived_at', $arrived_at->format('Y-m-d H:i'));
         $stmt->bindValue(':leaved_at', $leaved_at->format('Y-m-d H:i'));
@@ -29,26 +29,37 @@ class WorkDay{
         header('Location: index.php');
         return;
     }
-    public function getWorDayList () {
-        $query = "SELECT * FROM worktime";
-        $stmt = $this->pdo->query($query);
+    public function getWorkDayList () {
+        $query = "SELECT * FROM daily ORDER BY arrived_at DESC";
+        $stmt = $this->conn->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function calculateDebtTimeForEachUser () {
+        $query = "SELECT name, SUM(required_of) as debt FROM daily GROUP BY name";
+        $stmt = $this->conn->query($query);
         return $stmt->fetchAll();
     }
-    public function calculateDebtTimeForEachUser()
-    {
-        $query = "SELECT name,SUM(required_of) as debt FROM worktime GROUP BY name)";
-        $stmt = $this->pdo->prepare($query);
-        return $stmt->fetchAll();
-    }
-    public function markAsDone(int $id)
-    {
-        $query = "UPDATE worktime SET required_of = :required_of WHERE id = :id";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->bindParam(':required_of', $id);
+    public function markAsDone (int $id) {
+        $query = "UPDATE daily SET required_of = 0 WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         header('Location: index.php');
     }
+    public function getWorkDayListWithPagination (int $offset) {
+        $offset = $offset ? ($offset * 10)-10 : 0;
+        $query = "SELECT * FROM daily ORDER BY arrived_at DESC LIMIT 10 OFFSET " . $offset;
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getTotalRecords () {
+        $query = "SELECT COUNT(id) as pageCount FROM daily";
+        $stmt = $this->conn->query($query);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function calculatePageCount () {
+        $total = $this->getTotalRecords()['pageCount'];
+        return ceil($total/10);
+    }
 }
-
-
